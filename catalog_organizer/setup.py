@@ -14,4 +14,5 @@ setup(name='catalog_org',
 	"astropy",
 	"numpy",
 	'scipy',
-	'pandas',],)
+	'pandas',
+	'nbodykit',],)
