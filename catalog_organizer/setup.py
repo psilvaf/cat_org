@@ -1,4 +1,5 @@
 from setuptools import setup
+import os
 
 setup(name='catalog_org',
 	version='0.1.0',
