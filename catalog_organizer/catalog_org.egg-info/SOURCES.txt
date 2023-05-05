@@ -9,6 +9,7 @@ catalog_org/redshift_distribution.py
 catalog_org/redshift_pdf.py
 catalog_org/sigmas_bins.py
 catalog_org/spec_photo_joiner.py
+catalog_org/wfkp_ross.py
 catalog_org.egg-info/PKG-INFO
 catalog_org.egg-info/SOURCES.txt
 catalog_org.egg-info/dependency_links.txt

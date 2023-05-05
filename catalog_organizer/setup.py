@@ -16,4 +16,4 @@ setup(name='catalog_org',
 	"numpy",
 	'scipy',
 	'pandas',
-	'nbodykit',],)
+	'colossus',],)
