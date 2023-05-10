@@ -8,15 +8,14 @@ def chunks(x, n):
     gen=(xs[i:i+n] for i in range(0, len(xs), n))
     return list(gen)
     
-<<<<<<< HEAD
+
 def bins(num,data,z1,z2):
     bins=[[] for i in range(num)]
     z_bins=np.linspace(z1,z2,num)
-=======
+
 def bins(num,data):
     bins=[[] for i in range(num)]
     z_bins=np.linspace(min(data['Z']),max(data['Z']),num)
->>>>>>> main
     for j in range(len(data['Z'])):
         for i in range(len(z_bins)-1):
             if z_bins[i]<=data['Z'][j]<z_bins[i+1]:
