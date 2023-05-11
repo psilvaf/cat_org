@@ -18,9 +18,13 @@ def Sigma(z,sigma_z):
 def attribute_bias(z):
 	'''bias as a function of redshift, based on the ICE_COLA results'''
 	b=np.array([1.58,1.59,1.68,1.82,2.02])#ICE-Cola bias from w(theta)
-	bins=np.array([0,.7,.8,.9,1.,2])
-	bias=np.array([b[i] for i in range(len(bins)-1) if bins[i]<=z<=bins[i+1]])
-	return bias
+	bins=np.array([0,.7,.8,.9,1.,5])
+	bias=[]
+	for i in range(len(bins)-1):
+		if bins[i]<=z<=bins[i+1]:
+			bias.append(b[i])
+	#bias=np.array([b[i] for i in range(len(bins)-1) if bins[i]<=z<=bins[i+1]])
+	return np.array(bias)
 
 def growth_values(z):
 	'''Growth of structure values: D(z), f, beta'''
@@ -28,7 +32,7 @@ def growth_values(z):
 	D=cosmo.growthFactor(z)
 	dDdz=cosmo.growthFactor(z,derivative=1)
 	f=-(1+z)*dDdz/D
-	beta=np.array([f[i]/attribute_bias(z[i]) for i in range(len(z))])
+	beta=np.concatenate(np.array([f[i]/attribute_bias(z[i]) for i in range(len(z))]))
 	dicio={}
 	dicio['D']=D
 	dicio['f']=f
