@@ -21,7 +21,8 @@ def attribute_bias(z):
 	bins=np.array([0,.7,.8,.9,1.,5])
 	bias=[]
 	for i in range(len(bins)-1):
-		if bins[i]<=z<=bins[i+1]:
+	
+		if bins[i]<z<=bins[i+1]:
 			bias.append(b[i])
 	#bias=np.array([b[i] for i in range(len(bins)-1) if bins[i]<=z<=bins[i+1]])
 	return np.array(bias)
@@ -54,9 +55,9 @@ def wfkp(z,n_eff):
 	k_eff=.12
 	cosmo = cosmology.setCosmology('planck18')
 	bias=np.concatenate([attribute_bias(i) for i in z])
-	print(bias)
+	print(len(bias))
 	pk=cosmo.matterPowerSpectrum(k_eff,z)*bias**2
-	D=cosmo.growthFactorUnnormalized(z)
+	D=cosmo.growthFactor(z)
 	den=1+n_eff*pk
 	num=bias*D
 	return num/den
