@@ -9,9 +9,15 @@ def chunks(x, n):
     return list(gen)
     
 
-def bins(num,data,z1,z2):
+def bins0(num,data,z1,z2):
     bins=[[] for i in range(num)]
     z_bins=np.linspace(z1,z2,num)
+    for j in range(len(data['Z'])):
+        for i in range(len(z_bins)-1):
+            if z_bins[i]<=data['Z'][j]<z_bins[i+1]:
+                bins[i].append(data['Z'][j])
+    med_z=np.array([np.mean(i) for i in bins])
+    return med_z
 
 def bins(num,data):
     bins=[[] for i in range(num)]

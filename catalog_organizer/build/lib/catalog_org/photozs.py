@@ -7,19 +7,15 @@ from astropy.table import Table
 
 def handling_photoz(path,output_file):
     df = open(path, 'r')
-    
-    with Pool() as pool:
-        lista=[]
-        for y in df.readlines():
-            if not y.startswith("#"):
-                cols=y.strip()
-                lista.append(cols)
+
+    lista=[y.strip() for y in df.readlines() if not y.startswith("#")]
+
     bpz_photoz=[lista[i].split(' ') for i in range(len(lista))]
-    photoz=np.array([float(bpz_photoz[i][1]) for i in range(len(bpz_photoz))])
+    #photoz=np.array([float(bpz_photoz[i][1]) for i in range(len(bpz_photoz))])
     z_bmin=np.array([float(bpz_photoz[i][2]) for i in range(len(bpz_photoz))])
-    z_bmax=np.array([float(bpz_photoz[i][5]) for i in range(len(bpz_photoz))])
-    np.save(output_file,np.column_stack((photoz,z_bmin,z_bmax)))
-    
+    #z_bmax=np.array([float(bpz_photoz[i][5]) for i in range(len(bpz_photoz))])
+    np.save(output_file,z_bmin)
+    #np.column_stack((photoz,z_bmin,z_bmax))
     return
 
 def bins(survey,outputfile):
