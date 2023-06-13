@@ -22,3 +22,9 @@ def new_file(data2,new_ind,output):
 		new['DEC']=data2['DEC'][i]
 	Table(new).write(output,overwrite=True)
 	return
+	
+def z_eff(wfkp,wtot,z):
+
+    w=np.array([wfkp[i]*wtot[i] for i in range(len(z))])
+    w2=np.sum(w*z)/np.sum(w)
+    return w2
