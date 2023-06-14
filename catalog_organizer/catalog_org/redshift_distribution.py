@@ -28,3 +28,8 @@ def z_eff(wfkp,wtot,z):
     w=np.array([wfkp[i]*wtot[i] for i in range(len(z))])
     w2=np.sum(w*z)/np.sum(w)
     return w2
+    
+def smooth(y, box_pts):
+    box = np.ones(box_pts)/box_pts
+    y_smooth = np.convolve(y, box, mode='same')
+    return y_smooth

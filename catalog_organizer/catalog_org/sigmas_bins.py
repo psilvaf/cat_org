@@ -8,7 +8,7 @@ def chunks(x, n):
     gen=(xs[i:i+n] for i in range(0, len(xs), n))
     return list(gen)
     
-
+    
 def bins0(num,data,z1,z2):
     bins=[[] for i in range(num)]
     z_bins=np.linspace(z1,z2,num)
