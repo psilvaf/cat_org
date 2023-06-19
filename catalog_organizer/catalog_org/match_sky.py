@@ -15,7 +15,7 @@ def match_cats(smaller_cat,catalog,upperlimit=2):
     smaller_cat,catalog: path to fits file
     names: tuple with the cat's coords names(str)
     upperlimit: max angle separation in degrees
-    
+    return: astropy table with the indexes and angular separations of the matched galaxies
     """
     cat_RA = catalog['RA']
     cat_DEC = catalog['DEC']
@@ -29,5 +29,6 @@ def match_cats(smaller_cat,catalog,upperlimit=2):
     table['idx']=idx
     table['d2d']=separations
     table=Table(table)
+    return table
     table = table[(table['d2d']<=upperlimit)]
     return table['idx']
