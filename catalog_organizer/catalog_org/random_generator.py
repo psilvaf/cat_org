@@ -5,18 +5,17 @@ import random
 from scipy.interpolate import CubicSpline
 from scipy.interpolate import splev, splrep
 
-def get_dist_function(data,z_name):
+def get_dist_function(data):
 
 	'''Computes the histogram and interpolates the n(z) function
-	data (fits data): fits file table
-	z_name (str): redshift column name
+	data (arr):: redshift column name
 	
 	return: function	
 	'''
 	# Interpolation
-	dist_z=np.histogram(data['Z'],bins=100,density=True)
-	spl0 = splrep(np.linspace(min(data['Z']),max(data['Z']),len(dist_z[0])), dist_z[0], s=0.001, 	per=False)
-	x2 = np.linspace(min(data['Z']),max(data['Z']), 200)
+	dist_z=np.histogram(data,bins=100,density=True)
+	spl0 = splrep(np.linspace(min(data),max(data),len(dist_z[0])), dist_z[0], s=0.001, 	per=False)
+	x2 = np.linspace(min(data),max(data), 200)
 	y2 = splev(x2, spl0)
 	return CubicSpline(x2, y2)
 	

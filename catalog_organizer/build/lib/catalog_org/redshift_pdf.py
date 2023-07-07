@@ -7,6 +7,10 @@ from astropy.table import Table
 import time
 
 def pdf_photoz(path,output_file):
+
+	'''Handles BPZ pdfs files
+	return(numpy file): numpy file of arrays
+	'''
 	data = open(path, 'r')
 	distribution=[i for i in data.read().split('\n')][1:-1]
 	with Pool() as pool:
