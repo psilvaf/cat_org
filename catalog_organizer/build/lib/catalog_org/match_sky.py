@@ -29,6 +29,4 @@ def match_cats(smaller_cat,catalog,upperlimit=2):
     table['idx']=idx
     table['d2d']=separations
     table=Table(table)
-    return table
-    table = table[(table['d2d']<=upperlimit)]
     return table['idx']
