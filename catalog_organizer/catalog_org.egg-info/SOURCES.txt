@@ -8,6 +8,7 @@ catalog_org/random_generator.py
 catalog_org/read_fits_files.py
 catalog_org/redshift_distribution.py
 catalog_org/redshift_pdf.py
+catalog_org/repeat_for_dist.py
 catalog_org/sigmas_bins.py
 catalog_org/spec_photo_joiner.py
 catalog_org/wfkp_ross.py
