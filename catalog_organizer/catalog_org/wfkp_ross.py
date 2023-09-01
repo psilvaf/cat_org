@@ -21,22 +21,24 @@ def Sigma(z,sigma_z):
 	cosmo = cosmology.setCosmology('planck18')	
 	return (speed_of_light*.001/cosmo.Hz(z))*sigma_z/(1+z)
 
-def attribute_bias(z):
+def attribute_bias(zs):
 	'''bias as a function of redshift, based on the ICE_COLA results
 	z(arr/float): redshift
 	
 	return(arr/float): bias of the galaxies
 	
 	'''
-	b=np.array([1.58,1.59,1.68,1.82,2.02])#ICE-Cola bias from w(theta)
-	bins=np.array([0,.7,.8,.9,1.,5])
-	bias=[]
-	for i in range(len(bins)-1):
 	
-		if bins[i]<z<=bins[i+1]:
-			bias.append(b[i])
+	b = .98+1.24*zs-(1.72*zs**2)+1.28*zs**3
+	#b=np.array([1.58,1.59,1.68,1.82,2.02])#ICE-Cola bias from w(theta)
+	#bins=np.array([0,.7,.8,.9,1.,5])
+	#bias=[]
+	#for i in range(len(bins)-1):
+	
+	#	if bins[i]<z<=bins[i+1]:
+	#		bias.append(b[i])
 	#bias=np.array([b[i] for i in range(len(bins)-1) if bins[i]<=z<=bins[i+1]])
-	return np.array(bias)
+	return b
 
 def growth_values(z):
 	'''Growth of structure values: D(z), f, beta
@@ -48,7 +50,7 @@ def growth_values(z):
 	D=cosmo.growthFactor(z)
 	dDdz=cosmo.growthFactor(z,derivative=1)
 	f=-(1+z)*dDdz/D
-	beta=np.concatenate(np.array([f[i]/attribute_bias(z[i]) for i in range(len(z))]))
+	beta=f/attribute_bias(z)
 	dicio={}
 	dicio['D']=D
 	dicio['f']=f
@@ -90,8 +92,7 @@ def wfkp(z,n_eff):
 
 	k_eff=.12
 	cosmo = cosmology.setCosmology('planck18')
-	bias=np.concatenate([attribute_bias(i) for i in z])
-	print(len(bias))
+	bias=attribute_bias(z)
 	pk=cosmo.matterPowerSpectrum(k_eff,z)*bias**2
 	D=cosmo.growthFactor(z)
 	den=1+n_eff*pk
