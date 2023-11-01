@@ -27,14 +27,16 @@ def join_nodes(names,output_path):
 		ra.append(DATA[i]['RA'])
 		dec.append(DATA[i]['DEC'])
 	new={}
-	new['Z']=np.hstack((z))
+	new['Z_COSMO']=np.hstack((z))
 	new['RA']=np.hstack((ra))
 	new['DEC']=np.hstack((dec))
 	new['DZ_RSD']=np.hstack((dz))
 	fit = Table(new)
 	fit.write(output_path+'.fits',format='fits',overwrite=True)
+
 	return
 		
+
 
 
 

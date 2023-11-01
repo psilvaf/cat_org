@@ -69,3 +69,36 @@ def interval(bias,interv):
 
 	conf_int = stats.norm.interval(interv, loc=mean, scale=sigma)
 	return conf_int
+	
+def mode(data):
+	'''Computes the mode of a data set
+	data(arr): the dataset
+	return(float): mode
+	'''
+	function=np.histogram(data,bins=100)[0]/max(np.histogram(data,bins=100)[0])
+	x=np.histogram(data,bins=100)[1][1:][np.where(function==1)[0][0]]
+	return x
+    
+def find_perc(x):
+	'''
+	Finds the percentile (%) of a arbitrary distribution
+	x (arr): data set
+	return (int): percentile 
+	
+	'''
+	pos_perc=np.array([np.percentile(x,i+1) for i in range(100)])
+	perc=max(np.where(abs(pos_perc-mode(x))<=0.001)[0])
+	return perc
+	
+def get_sigma_z(bias):
+	'''
+	Computes the sigma_z of a photo-z survey. This is the 1sigma of the distribution wrt the 
+	actual mode of any distribution.
+	
+	bias(arr): the array with the bias between photo-z and the spec-z
+	return (tuple): sigma_z positive and negative
+	
+	'''
+	p=np.percentile(bias[np.where(bias>np.percentile(bias,find_perc(survey_bias_annz2)))[0]],34)
+	n=np.percentile(bias[np.where(bias<np.percentile(bias,find_perc(survey_bias_annz2)))[0]],34)
+	return p,n
