@@ -102,3 +102,25 @@ def get_sigma_z(bias):
 	p=np.percentile(bias[np.where(bias>np.percentile(bias,find_perc(survey_bias_annz2)))[0]],34)
 	n=np.percentile(bias[np.where(bias<np.percentile(bias,find_perc(survey_bias_annz2)))[0]],34)
 	return p,n
+	
+	
+def bins_pz(num,data,z_name):
+    '''
+    Divides a fits file in bins and computes the average redshift of each bin.
+    This considers just the min and max values of the survey redshift
+    
+    num(int): number of bins
+    data(fits data): fits data
+    zname(str): name of redshift column
+    
+    return(arr): average redshift of each bin  
+    
+    '''
+    bins=[[] for i in range(num)]
+    z_bins=np.linspace(min(data[z_name]),max(data[z_name]),num)
+    for j in range(len(data[z_name])):
+        for i in range(len(z_bins)-1):
+            if z_bins[i]<=data[z_name][j]<z_bins[i+1]:
+                bins[i].append(data[z_name][j])
+    med_z=np.array([np.mean(i) for i in bins])
+    return med_z
