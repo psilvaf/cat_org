@@ -5,7 +5,7 @@ from astropy.table import Table
 import numpy as np
 
 def read_data(data):
-    '''Reads fits files
+    '''Reads fits files from mocks
     return: astropy fits data
     
     '''
